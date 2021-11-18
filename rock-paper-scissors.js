@@ -9,43 +9,51 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-   let anyCase = prompt("Rock, Paper, or Scissors?")
-   playerSelection = anyCase.charAt(0).toUpperCase() + anyCase.toLowerCase().slice(1);
    computerSelection = computerPlay();
    if ((playerSelection === "Rock" && computerSelection === "Paper") ||
     (playerSelection === "Paper" && computerSelection === "Scissors") ||
     (playerSelection === "Scissors" && computerSelection === "Rock")) {
-       roundResult = `You lose! ${computerSelection} beats ${playerSelection}`;
+       roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
        compScore += 1;
    }
    else if (playerSelection === computerSelection) {
        roundResult = 'It\'s a tie! Try again.';
    }
    else {
-       roundResult = `${playerSelection} beats ${computerSelection}. You win!`;
+       roundResult = `${playerSelection} beats ${computerSelection}. You win this round!`;
        playerScore +=1;
    }
-   return roundResult;
 }
 
-
-function game() {
+window.onload = function() {
    
-    let roundOne = playRound();
-    alert(roundOne);
+    const buttons = document.querySelectorAll("button");
+    const results = document.querySelector('#results');
+    const currentScore = document.createElement('div');
+    const endScore = document.createElement('div');
+    currentScore.classList.add('content');
+    buttons.forEach((button) => {   
+        button.addEventListener("click", function() {
+            playRound(button.id, computerPlay);
+            currentScore.textContent = `${roundResult} Current Score: You = ${playerScore}, Computer = ${compScore}`;
+            results.appendChild(currentScore);
+            if (playerScore === 5 || compScore === 5) {
+                let totalScore = `FINAL SCORE: You = ${playerScore}, Computer = ${compScore}`;
+                endScore.textContent = `${totalScore}`;
+                results.appendChild(endScore);
+                setTimeout(resetGame, 500);
+            }
+        })     
+    });
+    
+    function resetGame(){
+        alert("Game is over. Click \"OK\" to play again.");
+        playerScore = 0;
+        compScore = 0;
+        results.removeChild(endScore);
+        results.removeChild(currentScore);
+    }
 
-    let roundTwo = playRound();
-    alert(roundTwo);
-
-    let roundThree = playRound();
-    alert(roundThree);
-
-    let roundFour = playRound();
-    alert(roundFour);
-
-    let roundFive = playRound();
-    alert(roundFive);
-
-    let totalScore = `You: ${playerScore}, Computer: ${compScore}`;
-    return totalScore;
 }
+
+
