@@ -10,3 +10,13 @@ It allows the user to play Rock, Paper, or Scissors against the computer for 5 r
 * To make sure variables are global and not local when they need to be accessed across functions
 * Possible to use '+' to concatenate functions (eg anyCase.charAt(0).toUpperCase() + anyCase.toLowerCase().slice(1);)
 
+# Rock Paper Scissors: Update 11/17/2021
+
+Developed a UI for the game so that it is playable in the browser without using the console.
+
+## What I Learned
+
+* How to use DOM methods (how to target nodes with selectors)
+* How to add effects to buttons using CSS
+
+
